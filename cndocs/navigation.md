@@ -39,23 +39,22 @@ export default App;
 其中每一个 screen 组件都可以单独设置导航选项，例如导航头的标题。还可以使用`navigation`属性中的方法去跳转到别的页面：
 
 ```
-class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Welcome',
-  };
+mport React from 'react';
+import { Button } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
+class MyBackButton extends React.Component {
   render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <Button
-        title="Go to Jane's profile"
-        onPress={() =>
-          navigate('Profile', { name: 'Jane' })
-        }
-      />
-    );
+    return <Button title="Back" onPress={() => { this.props.navigation.goBack() }} />;
   }
 }
+
+// withNavigation returns a component that wraps MyBackButton and passes in the
+// navigation prop
+export default withNavigation(MyBackButton);
+
 ```
+还有另一种方法请参考 React Navigation 官网的介绍(https://reactnavigation.org/docs/zh-Hans/connecting-navigation-prop.html)
 
 React Navigation 的路由写法使其非常容易扩展导航逻辑。由于路由可以嵌套使用，因而开发者可以根据不同页面编写不同的导航逻辑，且彼此互不影响。
 
